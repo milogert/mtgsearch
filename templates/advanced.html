@@ -4,19 +4,157 @@
 <div class="col-md-12">
   <h1>Advanced Search</h1>
 
-  <form class="form">
+  <form class="form-horizontal" role="form">
+    <!-- Name -->
+    <div class="form-group">
+      <label form="name" class="col-sm-2 control-label">Name</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="name" placeholder="Name" name="name">
+      </div>
+    </div>
+    <!-- End Name -->
 
-{#    name#}
-{#    rules text#}
-{#    types          type#}
-{#    color          color identity#}
-{#    mana cost      converted mana cost#}
-{#    power          toughness        loyalty#}
-{#    format         expansion#}
-{#    flavor text#}
-{#    artist#}
+    <!-- Rules Text -->
+    <div class="form-group">
+      <label for="text" class="col-sm-2 control-label">Rules Text</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="text" placeholder="Rules Text" name="text">
+      </div>
+    </div>
+    <!-- End Rules Text -->
 
+    <!-- Types and Type Select -->
+    <div class="form-group">
+      <label for="types" class="col-sm-2 control-label">Types</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" id="types" placeholder="Types" name="types">
+      </div>
+
+      <label for="type" class="col-sm-2 control-label">Type</label>
+      <div class="col-sm-4">
+        <select multiple class="form-control" id="type" name="type">
+          <option>Instant</option>
+          <option>Sorcery</option>
+        </select>
+      </div>
+    </div>
+    <!-- End Types and Type Select -->
+
+    <!-- Colors and Color Identity -->
+    <div class="form-group">
+      <label>Color</label>
+      <div class="col-sm-10">
+        <label class="checkbox-inline">
+          <input type="checkbox" id="colorWhite" value="white"> White
+        </label>
+        <label class="checkbox-inline">
+          <input type="checkbox" id="colorBlue" value="blue"> Blue
+        </label>
+        <label class="checkbox-inline">
+          <input type="checkbox" id="colorBlack" value="black"> Black
+        </label>
+        <label class="checkbox-inline">
+          <input type="checkbox" id="colorRed" value="red"> Red
+        </label>
+        <label class="checkbox-inline">
+          <input type="checkbox" id="colorGreen" value="green"> Green
+        </label>
+        <label class="checkbox-inline">
+          <input type="checkbox" id="colorMulti" value="multi"> Multicolored
+        </label>
+        <label class="checkbox-inline">
+          <input type="checkbox" id="colorExclusive" value="exclusive"> Exclude Unselected
+        </label>
+      </div>
+
+      <label>Color Identity</label>
+      <div class="col-sm-10">
+        <label class="checkbox-inline">
+          <input type="checkbox" id="colorIdentWhite" value="white"> White
+        </label>
+        <label class="checkbox-inline">
+          <input type="checkbox" id="colorIdentBlue" value="blue"> Blue
+        </label>
+        <label class="checkbox-inline">
+          <input type="checkbox" id="colorIdentBlack" value="black"> Black
+        </label>
+        <label class="checkbox-inline">
+          <input type="checkbox" id="colorIdentRed" value="red"> Red
+        </label>
+        <label class="checkbox-inline">
+          <input type="checkbox" id="colorIdentGreen" value="green"> Green
+        </label>
+        <label class="checkbox-inline">
+          <input type="checkbox" id="colorIdentExclusive" value="exclusive"> Exclude Unselected
+        </label>
+      </div>
+    </div>
+    <!-- End Color and Color Identity -->
+
+    <!-- Mana Cost and CMC -->
+    <div class="form-group">
+      <label for="cmc" class="col-sm-2 control-label">Converted Mana Cost</label>
+      <div class="col-sm-10">
+        <input type="number" class="form-control" id="cmc" placeholder="Converted Mana Cost" name="cmc">
+      </div>
+
+      <label for="manaCost" class="col-sm-2 control-label">Mana Cost</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="manaCost" placeholder="Mana Cost" name="manaCost">
+      </div>
+    </div>
+    <!-- End Mana Cost and CMC -->
+
+    <!-- Power, Toughness, and Loyalty -->
+    <div class="form-group">
+      <label for="power" class="col-sm-2 control-label">Power</label>
+      <div class="col-sm-2">
+        <select class="form-control" id="power" name="power"></select>
+      </div>
+
+      <label for="toughness" class="col-sm-2 control-label">Toughness</label>
+      <div class="col-sm-2">
+        <select class="form-control" id="toughness" name="toughness"></select>
+      </div>
+
+      <label for="loyalty" class="col-sm-2 control-label">Loyalty</label>
+      <div class="col-sm-2">
+        <select class="form-control" id="loyalty" name="loyalty"></select>
+      </div>
+    </div>
+    <!-- End Power, Toughness, and Loyalty -->
+
+    <!-- Legalities and Printings -->
+    <div class="form-group">
+      <label for="legalities" class="col-sm-2 control-label">Legalities</label>
+      <div class="col-sm-4">
+        <p>Undecided on how to handle this.</p>
+      </div>
+
+      <label for="printings" class="col-sm-2 control-label">Printings</label>
+      <div class="col-sm-4">
+        <select class="form-control" id="printings" name="printings"></select>
+      </div>
+    </div>
+    <!-- End Legalities and Printings -->
+
+    <!-- Flavor -->
+    <div class="form-group">
+      <label for="flavor" class="col-sm-2 control-label">Flavor Text</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="flavor" placeholder="Flavor Text" name="flavor">
+      </div>
+    </div>
+    <!-- End Flavor -->
+
+    <!-- Artist -->
+    <div class="artist">
+      <label for="artist" class="col-sm-2 control-label">Artist</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="artist" placeholder="Artist" name="artist">
+      </div>
+    </div>
+    <!-- End Artist -->
   </form>
-
 </div>
 {% endblock %}
