@@ -1,0 +1,19 @@
+{% block title %}mtgsear.ch{% endblock %}
+
+{% block content %}
+<div class="col-md-12">
+
+
+  <div class="jumbotron">
+    <h1>Welcome to mtgsear.ch</h1>
+
+    <p>New sets:</p>
+    <ul>
+      {% for aSet in theSets %}
+        <li><a href='/{{ aSet["code"] }}'>{{ aSet["name"] }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+
+</div>
+{% endblock %}
