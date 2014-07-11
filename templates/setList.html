@@ -1,0 +1,7 @@
+{% block title %}{{ theSet["name"] }}{% endblock %}
+
+{% block content %}
+{% for aCard in theCardList %}
+  <p>{{ aCard["multiverseid"] }} - {{ aCard["name"] }}</p>
+{% endfor %}
+{% endblock %}
