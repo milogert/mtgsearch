@@ -7,8 +7,9 @@ DO NOT COMMIT UNLESS ASKED.
 """
 
 DEBUG = True
+HOST = "0.0.0.0"
 MONGODB_SETTINGS = {
   "DB": "mtg",
-  "HOST" : "pig",
+  "HOST" : "127.0.0.1",
   "PORT": 27017
 }
