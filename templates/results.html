@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block title %}{{ theQuery }} - mtgsear.ch{% endblock %}
+
+{% block content %}
+<div class="col-md-12">
+  <p>Raw query for this search: <a href="http://mtgsear.ch/api/v0.1/{{ theQuery }}">http://mtgsear.ch/api/v0.1/{{ theQuery }}</a>
+  {% for aResult in theResults %}
+    <div class="row">
+      <div class="col-md-3">
+        <div class="photo"></div>
+      </div>
+      <div class="col-md-9">
+        <h3>{{ aResult["name"] }}</h3>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+{% endblock %}
