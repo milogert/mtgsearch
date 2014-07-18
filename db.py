@@ -5,13 +5,13 @@ from flask.ext.mongoengine import MongoEngine
 from mongoengine import *
 
 
-class Card(Document):
+class Cards(Document):
   """The card class."""
   name = StringField()
   multiverseid = IntField()
   text = StringField()
 
-  _type = StringField()
+  type = StringField()
   supertypes = ListField(StringField())
   types = ListField(StringField())
   subtypes = ListField(StringField())
@@ -40,6 +40,6 @@ class Sets(Document):
   gathererCode = StringField()
   releaseDate = StringField()
   border = StringField()
-  _type = StringField()
+  type = StringField()
   booster = ListField(StringField())
 
