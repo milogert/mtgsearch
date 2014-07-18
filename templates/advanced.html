@@ -1,10 +1,18 @@
+{% extends "layout.html" %}
+
 {% block title %}Advanced Search{% endblock %}
 
 {% block content %}
 <div class="col-md-12">
   <h1>Advanced Search</h1>
 
-  <form class="form-horizontal" role="form">
+  <form class="form-horizontal" role="form" action="/doSearch" method="GET">
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-primary">Search</button>
+      </div>
+    </div>
+
     <!-- Name -->
     <div class="form-group">
       <label form="name" class="col-sm-2 control-label">Name</label>
@@ -33,8 +41,9 @@
       <label for="type" class="col-sm-2 control-label">Type</label>
       <div class="col-sm-4">
         <select multiple class="form-control" id="type" name="type">
-          <option>Instant</option>
-          <option>Sorcery</option>
+          {% for aType in theTypes %}
+            <option value="{{ aType['name'] }}">{{ aType['name'] }}</option>
+          {% endfor %}
         </select>
       </div>
     </div>
@@ -42,8 +51,8 @@
 
     <!-- Colors and Color Identity -->
     <div class="form-group">
-      <label>Color</label>
-      <div class="col-sm-10">
+      <label class="col-sm-2 control-label">Color</label>
+      <div class="col-sm-4">
         <label class="checkbox-inline">
           <input type="checkbox" id="colorWhite" value="white"> White
         </label>
@@ -67,8 +76,8 @@
         </label>
       </div>
 
-      <label>Color Identity</label>
-      <div class="col-sm-10">
+      <label class="col-sm-2 control-label">Color Identity</label>
+      <div class="col-sm-4">
         <label class="checkbox-inline">
           <input type="checkbox" id="colorIdentWhite" value="white"> White
         </label>
@@ -94,12 +103,12 @@
     <!-- Mana Cost and CMC -->
     <div class="form-group">
       <label for="cmc" class="col-sm-2 control-label">Converted Mana Cost</label>
-      <div class="col-sm-10">
+      <div class="col-sm-4">
         <input type="number" class="form-control" id="cmc" placeholder="Converted Mana Cost" name="cmc">
       </div>
 
       <label for="manaCost" class="col-sm-2 control-label">Mana Cost</label>
-      <div class="col-sm-10">
+      <div class="col-sm-4">
         <input type="text" class="form-control" id="manaCost" placeholder="Mana Cost" name="manaCost">
       </div>
     </div>
@@ -109,7 +118,10 @@
     <div class="form-group">
       <label for="power" class="col-sm-2 control-label">Power</label>
       <div class="col-sm-2">
-        <select class="form-control" id="power" name="power"></select>
+        <select class="form-control" id="power" name="power">
+          {{ for aPower in thePower }}
+            <option value="{{ aPower }}">{{
+        </select>
       </div>
 
       <label for="toughness" class="col-sm-2 control-label">Toughness</label>
@@ -133,7 +145,11 @@
 
       <label for="printings" class="col-sm-2 control-label">Printings</label>
       <div class="col-sm-4">
-        <select class="form-control" id="printings" name="printings"></select>
+        <select class="form-control" id="printings" name="printings" multiple>
+          {% for aPrinting in thePrintings %}
+            <option value="{{ aPrinting['code'] }}">{{ aPrinting['name'] }}</option>
+          {% endfor %}
+        </select>
       </div>
     </div>
     <!-- End Legalities and Printings -->
@@ -148,13 +164,19 @@
     <!-- End Flavor -->
 
     <!-- Artist -->
-    <div class="artist">
+    <div class="form-group">
       <label for="artist" class="col-sm-2 control-label">Artist</label>
       <div class="col-sm-10">
         <input type="text" class="form-control" id="artist" placeholder="Artist" name="artist">
       </div>
     </div>
     <!-- End Artist -->
+
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-primary">Search</button>
+      </div>
+    </div>
   </form>
 </div>
 {% endblock %}
