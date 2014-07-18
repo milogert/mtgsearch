@@ -1,10 +1,15 @@
 #!exec python2
 
-from db import Card, Sets
-from flask import Flask, render_template
+from db import Cards, Sets
+from flask import Flask, render_template, request
 from flask.ext.mongoengine import MongoEngine
+import json
 import model
+import urllib
 from werkzeug.routing import BaseConverter
+
+# Constants.
+API_VERSION = "0.1"
 
 # Create the application.
 app = Flask(__name__)
@@ -32,6 +37,26 @@ def index():
 @app.route("/advanced")
 def advanced():
   return render_template("advanced.html")
+
+@app.route("/doSearch")
+def doSearch():
+  # Get the query out of the url.
+  aQuery = request.args.to_dict()
+
+  # Call another function which will return a python dictionary.
+  aResults = model.search(aQuery)
+
+  # Return a rendered template with the query and the results.
+  return render_template(
+      "results.html",
+      theQuery=urllib.urlencode(aQuery),
+      theResults=aResults
+  )
+
+@app.route("/api/v" + API_VERSION)
+def apiSearch():
+  pass
+  
 
 # Route to set pages.
 #@app.route('/<regex("[a-z0-9][a-z0-9][a-z0-9]"):theSet')
