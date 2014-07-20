@@ -10,6 +10,6 @@ DEBUG = True
 HOST = "0.0.0.0"
 MONGODB_SETTINGS = {
   "DB": "mtg",
-  "HOST" : "127.0.0.1",
+  "HOST" : "milogert.com",
   "PORT": 27017
 }
