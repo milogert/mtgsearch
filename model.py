@@ -15,6 +15,11 @@ def search(theQuery):
   #raise ImportError
   return json.loads(Cards.objects(**aMongoQuery).to_json())
 
+def getCardById(theCardId):
+  """Get a specific by multiverse id."""
+  # raise ImportError
+  return json.loads(Cards.objects(multiverseid=theCardId)[0].to_json())
+
 
 def getSets():
 

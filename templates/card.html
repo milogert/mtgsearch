@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+
+{% block title %}{{ theCard["name"] }}{% endblock %}
+
+{% block content %}
+<div class="col-md-12"><h2>{{ theCard["name"] }}</h2></div>
+
+<div class="col-md-3">
+  <img class="img-responsive" src="http://mtgimage.com/multiverseid/{{ theCard['multiverseid'] }}.jpg">
+</div>
+
+<div class="col-md-6">
+  <p>{{ theCard["text"] }}</p>
+  <p><em>{{ theCard["flavor"] }}</em></p>
+  <p>Illus. {{ theCard["artist"] }}</p>
+
+  {% if theCard.has_key("rulings") %}
+    <h4>Oracle Rulings</h4>
+    <dl class="dl-horizontal">
+      {% for aRuling in theCard["rulings"] %}
+        <dt><b>{{ aRuling["date"] }}</b></dt>
+        <dd>{{ aRuling["text"] }}</dd>
+      {% endfor %}
+    </dl>
+  {% endif %}
+
+  <h4>Legalities</h4>
+  <ul>
+    {% for aFormat, aLegality in theCard["legalities"].iteritems() %}
+      {% if aLegality == "Legal" %}
+        <li class="text-success">{{ aFormat }}: {{ aLegality }}</li>
+      {% elif aLegality == "Illegal" %}
+        <li class="text-danger">{{ aFormat }}: {{ aLegality }}</li>
+      {% else %}
+        <li class="text-warning">{{ aFormat }}: {{ aLegality }}</li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+</div>
+
+<div class="col-md-3">
+ <p>Test.</p>
+</div>
+{% endblock %}
