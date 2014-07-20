@@ -53,11 +53,45 @@ def doSearch():
       theResults=aResults
   )
 
+@app.route("/byId/<int:theCardId>")
+def cardById(theCardId):
+  aCard = model.getCardById(theCardId)
+
+  return render_template("card.html", theCard=aCard)
+
+@app.route("/bySet/<theSet>/<theCard>")
+def cardBySet(theSet, theCard):
+  return theSet + "/" + theCard
+
 @app.route("/api/v" + API_VERSION)
 def apiSearch():
   pass
-  
 
+
+## Template functions.
+def formatManaCost(theCost):
+  pass
+
+app.jinja_env.globals.update(formatManaCost=formatManaCost)
+
+def getSetPath(theSet, theRarity):
+  aSet = Sets.objects(name=theSet)[0]["code"]
+
+  aRarity = ""
+  if theRarity == "Common":
+    aRarity = "c"
+  elif theRarity == "Uncommon":
+    aRarity = "u"
+  elif theRarity == "Rare":
+    aRarity = "r"
+  elif theRarity == "Mythic Rare":
+    aRarity = "m"
+  else:
+    aRarity = "ERROR"
+
+  return aSet + "/" + aRarity
+
+app.jinja_env.globals.update(getSetPath=getSetPath)
 # Route to set pages.
 #@app.route('/<regex("[a-z0-9][a-z0-9][a-z0-9]"):theSet')
 #def setList(theSet):

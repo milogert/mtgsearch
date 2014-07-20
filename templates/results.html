@@ -6,12 +6,34 @@
 <div class="col-md-12">
   <p>Raw query for this search: <a href="http://mtgsear.ch/api/v0.1/{{ theQuery }}">http://mtgsear.ch/api/v0.1/{{ theQuery }}</a>
   {% for aResult in theResults %}
+    {% if loop.index > 1 %}
+      <hr>
+    {% endif %}
     <div class="row">
-      <div class="col-md-3">
-        <div class="photo"></div>
+      <div class="col-md-12">
+        <h3>{{ aResult["name"] }}
+          {%  if aResult.has_key("cmc") %}
+            <small>{{ aResult["manaCost"] }} ({{ aResult["cmc"] }})</small>
+          {% endif %}
+        </h3>
       </div>
-      <div class="col-md-9">
-        <h3>{{ aResult["name"] }}</h3>
+      <div class="col-md-3">
+        <img src="http://mtgimage.com/card/{{ aResult['imageName'] }}.jpg" class="img-responsive">
+      </div>
+      <div class="col-md-6">
+        <p>{{ aResult["text"] }}</p>
+        <p><em>{{ aResult["flavor"] }}</em></p>
+        <p>Illus. {{ aResult["artist"] }}</p>
+      </div>
+      <div class="col-md-3">
+        <h4>Printings</h4>
+        <div class="list-group">
+        {% for aPrinting in aResult["printings"] %}
+          <a href="/bySet/{{ aPrinting }}/{{ aResult['name'] }}" class="list-group-item">
+            <img src="http://mtgimage.com/symbol/set/{{ getSetPath(aPrinting, aResult['rarity']) }}/24.png">  {{ aPrinting }}
+           </a>
+        {% endfor %}
+        </div>
       </div>
     </div>
   {% endfor %}
