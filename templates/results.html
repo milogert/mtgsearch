@@ -13,7 +13,11 @@
       <div class="col-md-12">
         <h3>{{ aResult["name"] }}
           {%  if aResult.has_key("cmc") %}
-            <small>{{ aResult["manaCost"] }} ({{ aResult["cmc"] }})</small>
+            <small>
+              {% for aSymbol in formatCost(aResult["manaCost"]) %}
+                <img src="http://mtgimage.com/symbol/mana/{{ aSymbol }}/16.png">
+              {% endfor %}
+              {{ aResult["manaCost"] }} ({{ aResult["cmc"] }})</small>
           {% endif %}
         </h3>
       </div>
@@ -29,9 +33,9 @@
         <h4>Printings</h4>
         <div class="list-group">
         {% for aPrinting in aResult["printings"] %}
-          <a href="/bySet/{{ aPrinting }}/{{ aResult['name'] }}" class="list-group-item">
-            <img src="http://mtgimage.com/symbol/set/{{ getSetPath(aPrinting, aResult['rarity']) }}/24.png">  {{ aPrinting }}
-           </a>
+          <a href="/bySet/{{ aPrinting['printing'] }}/{{ aResult['name'] }}" class="list-group-item">
+            <img src="http://mtgimage.com/symbol/set/{{ getSetPath(aPrinting['printing'], aPrinting['rarity']) }}/24.png"> {{ aPrinting['printing'] }} ({{ aPrinting["multiverseid"] }})
+          </a>
         {% endfor %}
         </div>
       </div>
