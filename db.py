@@ -33,6 +33,36 @@ class Cards(Document):
   imageName = StringField()
 
 
+class Cards2(Document):
+  """Class for the test database."""
+  meta = {'collection': 'cards2'}
+
+  name = StringField()
+  multiverseid = IntField()
+  text = StringField()
+
+  type = StringField()
+  supertypes = ListField(StringField())
+  types = ListField(StringField())
+  subtypes = ListField(StringField())
+
+  manaCost = StringField()
+  cmc = IntField()
+  colors = ListField(StringField())
+
+  power = StringField()
+  toughness = StringField()
+  loyalty = IntField()
+
+  flavor = StringField()
+  artist = StringField()
+  number = IntField()
+
+  imageName = StringField()
+
+  meta = {'collection': 'cards2'}
+
+
 class Sets(Document):
   """The set class."""
   name = StringField()
