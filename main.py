@@ -1,7 +1,7 @@
 #!exec python2
 
-from db import Cards, Sets
-from flask import Flask, render_template, request
+from db import Cards, Sets, Cards2
+from flask import Flask, render_template, request, jsonify
 from flask.ext.mongoengine import MongoEngine
 import json
 import model
@@ -63,9 +63,10 @@ def cardById(theCardId):
 def cardBySet(theSet, theCard):
   return theSet + "/" + theCard
 
-@app.route("/api/v" + API_VERSION)
+@app.route("/api")
 def apiSearch():
-  pass
+  q = request.args.to_dict()
+  return jsonify(Cards2.objects(**{"name": q["name"]}).to_json())
 
 
 ## Template functions.
@@ -87,11 +88,19 @@ def getSetPath(theSet, theRarity):
   elif theRarity == "Mythic Rare":
     aRarity = "m"
   else:
-    aRarity = "ERROR"
+    aRarity = "s"
 
   return aSet + "/" + aRarity
 
 app.jinja_env.globals.update(getSetPath=getSetPath)
+
+def formatCost(theStr):
+  """Format the cost for the mtgimage api."""
+  return theStr[1:-1].replace("/", "").split("}{")
+
+app.jinja_env.globals.update(formatCost=formatCost)
+
+
 # Route to set pages.
 #@app.route('/<regex("[a-z0-9][a-z0-9][a-z0-9]"):theSet')
 #def setList(theSet):
