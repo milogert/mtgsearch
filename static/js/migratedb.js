@@ -50,7 +50,7 @@ while(aCursor.hasNext()) {
 
     // Grab the data from the document, append it to the appropriate array.
     aPrintings.push({
-        "multiverseid": Math.floor(aDoc["multiverseid"]),
+        "multiverseid": NumberInt(aDoc["multiverseid"]),
         "printing": aDoc["printings"][aCount],
         "number": aDoc["number"],
         "rarity": aDoc["rarity"],

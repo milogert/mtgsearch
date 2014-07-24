@@ -47,7 +47,7 @@ while(aCursor.hasNext()) {
   }
 
   aPrintings.push({
-      "multiverseid": Math.floor(aDoc["multiverseid"]),
+      "multiverseid": NumberInt(aDoc["multiverseid"]),
       "printing": aDoc["printings"][aCount],
       "number": aDoc["number"],
       "rarity": aDoc["rarity"],
