@@ -53,20 +53,36 @@ def doSearch():
       theResults=aResults
   )
 
-@app.route("/byId/<int:theCardId>")
+@app.route("/id/<int:theCardId>")
 def cardById(theCardId):
-  aCard = model.getCardById(theCardId)
+  # Get the card.
+  aCard = json.loads(
+    Cards.objects(
+      __raw__={"printings.multiverseid": theCardId}
+    )[0].to_json()
+  )
 
-  return render_template("card.html", theCard=aCard)
+  # Get the printing version.
+  aPrinting = []
+  for aPrint in aCard["printings"]:
+    if aPrint["multiverseid"] == theCardId:
+      aPrinting = aPrint
+      break
 
-@app.route("/bySet/<theSet>/<theCard>")
+  return render_template(
+    "card.html",
+    theCard=aCard,
+    thePrinting=aPrinting
+  )
+
+@app.route("/set/<theSet>/<theCard>")
 def cardBySet(theSet, theCard):
   return theSet + "/" + theCard
 
 @app.route("/api")
 def apiSearch():
   q = request.args.to_dict()
-  return jsonify(Cards2.objects(**{"name": q["name"]}).to_json())
+  return Cards2.objects(**{"name": q["name"]}).to_json()
 
 
 ## Template functions.

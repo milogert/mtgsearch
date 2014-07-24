@@ -27,13 +27,12 @@
       <div class="col-md-6">
         <p>{{ aResult["text"] }}</p>
         <p><em>{{ aResult["flavor"] }}</em></p>
-        <p>Illus. {{ aResult["artist"] }}</p>
       </div>
       <div class="col-md-3">
         <h4>Printings</h4>
         <div class="list-group">
         {% for aPrinting in aResult["printings"] %}
-          <a href="/bySet/{{ aPrinting['printing'] }}/{{ aResult['name'] }}" class="list-group-item">
+          <a href="/set/{{ aPrinting['printing'] }}/{{ aResult['name'] }}" class="list-group-item">
             <img src="http://mtgimage.com/symbol/set/{{ getSetPath(aPrinting['printing'], aPrinting['rarity']) }}/24.png"> {{ aPrinting['printing'] }} ({{ aPrinting["multiverseid"] }})
           </a>
         {% endfor %}

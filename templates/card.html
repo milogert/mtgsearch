@@ -26,14 +26,15 @@
 
   <h4>Legalities</h4>
   <ul>
-    {% for aFormat, aLegality in theCard["legalities"].iteritems() %}
+    {% for aItem in theCard["legalities"] %}
       {% if aLegality == "Legal" %}
-        <li class="text-success">{{ aFormat }}: {{ aLegality }}</li>
+        {% aClass = "success" %}
       {% elif aLegality == "Illegal" %}
-        <li class="text-danger">{{ aFormat }}: {{ aLegality }}</li>
+        {% aClass = "danger" %}
       {% else %}
-        <li class="text-warning">{{ aFormat }}: {{ aLegality }}</li>
+        {% aClass = "warning" %}
       {% endif %}
+      <li class="text-{{ aClass }}">{{ aItem["format"] }}: {{ aItem["status"] }}</li>
     {% endfor %}
   </ul>
 </div>
