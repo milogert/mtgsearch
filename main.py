@@ -116,6 +116,12 @@ def formatCost(theStr):
 
 app.jinja_env.globals.update(formatCost=formatCost)
 
+def p_int(x):
+  """Format the cost for the mtgimage api."""
+  return int(x)
+
+app.jinja_env.globals.update(int=p_int)
+
 
 # Route to set pages.
 #@app.route('/<regex("[a-z0-9][a-z0-9][a-z0-9]"):theSet')
