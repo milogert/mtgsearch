@@ -6,13 +6,13 @@
 <div class="col-md-12"><h2>{{ theCard["name"] }}</h2></div>
 
 <div class="col-md-3">
-  <img class="img-responsive" src="http://mtgimage.com/multiverseid/{{ theCard['multiverseid'] }}.jpg">
+  <img class="img-responsive" src="http://mtgimage.com/multiverseid/{{ int(thePrinting['multiverseid']) }}.jpg">
 </div>
 
 <div class="col-md-6">
   <p>{{ theCard["text"] }}</p>
-  <p><em>{{ theCard["flavor"] }}</em></p>
-  <p>Illus. {{ theCard["artist"] }}</p>
+  <p><em>{{ thePrinting["flavor"] }}</em></p>
+  <p>Illus. {{ thePrinting["artist"] }}</p>
 
   {% if theCard.has_key("rulings") %}
     <h4>Oracle Rulings</h4>
@@ -27,12 +27,12 @@
   <h4>Legalities</h4>
   <ul>
     {% for aItem in theCard["legalities"] %}
-      {% if aLegality == "Legal" %}
-        {% aClass = "success" %}
-      {% elif aLegality == "Illegal" %}
-        {% aClass = "danger" %}
+      {% if aItem["status"] == "Legal" %}
+        {% set aClass = "success" %}
+      {% elif aItem["status"] == "Illegal" %}
+        {% set aClass = "danger" %}
       {% else %}
-        {% aClass = "warning" %}
+        {% set aClass = "warning" %}
       {% endif %}
       <li class="text-{{ aClass }}">{{ aItem["format"] }}: {{ aItem["status"] }}</li>
     {% endfor %}
@@ -40,6 +40,17 @@
 </div>
 
 <div class="col-md-3">
- <p>Test.</p>
+  <h4>Printings</h4>
+  <div class="list-group">
+  {% for aPrinting in theCard["printings"] %}
+    {% set aCurrent = "" %}
+    {% if aPrinting["multiverseid"] == thePrinting["multiverseid"] %}
+      {% set aCurrent = "active" %}
+    {% endif %}
+    <a href="/set/{{ aPrinting['printing'] }}/{{ theCard['name'] }}" class="list-group-item {{ aCurrent }}">
+      <img src="http://mtgimage.com/symbol/set/{{ getSetPath(aPrinting['printing'], aPrinting['rarity']) }}/24.png"> {{ aPrinting['printing'] }} ({{ int(aPrinting["multiverseid"]) }})
+    </a>
+  {% endfor %}
+  </div>
 </div>
 {% endblock %}
