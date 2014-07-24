@@ -1,5 +1,5 @@
 // Database constants.
-FROMDB = "cardsOld";
+FROMDB = "test";
 TODB = "cards2";
 
 // Get the mongo connection.
@@ -22,56 +22,44 @@ while(aCursor.hasNext()) {
   var aTestCursor = aDb[TODB].find({name: aOldDoc["name"]});
   var aSize = aTestCursor.size();
   if(aSize == 1) {
-    continue;
-  } else if(aTestCursor.size() > 1) {
+    aReprint = true;
+  } else if(aSize > 1) {
     print("-- Too many: " + aTestCursor.next()["name"] + "\n");
+    continue;
   }
 
   // Query the collection based on the name.
-  var aCurrCursor = aDb[FROMDB].find({
+  var aDoc = aDb[FROMDB].findOne({
       name: aOldDoc["name"],
       layout: {$ne: "vanguard"}
-  }).sort({multiverseid: 1});
+  });
 
   // Set the printing count.
-  var aCount = 0;
+  var aCount = aReprint ? aDoc["printings"].length - 1 : 0;
 
   // Create the printings and legalities array.
   var aPrintings = [];
   var aLegalities = [];
 
-  // Create the document variable to use after the loop.
-  var aDoc;
+  if(aReprint) {
+    var aExitstingDoc = aTestCursor.next();
+    aPrintings = aExitstingDoc["printings"];
+  }
 
-  // Loop through the query.
-  while(aCurrCursor.hasNext()) {
-    // Grab the current document.
-    aDoc = aCurrCursor.next();
+  aPrintings.push({
+      "multiverseid": Math.floor(aDoc["multiverseid"]),
+      "printing": aDoc["printings"][aCount],
+      "number": aDoc["number"],
+      "rarity": aDoc["rarity"],
+      "artist": aDoc["artist"]
+  });
 
-    // Grab the data from the document, append it to the appropriate array.
-    aPrintings.push({
-        "multiverseid": Math.floor(aDoc["multiverseid"]),
-        "printing": aDoc["printings"][aCount],
-        "number": aDoc["number"],
-        "rarity": aDoc["rarity"],
-        "artist": aDoc["artist"]
-    });
-
-    if(aDoc["name"] == "Welkin Tern") {
-      printjson(aPrintings);
+  if(aCount == 0 || aReprint) {
+    for(var k in aDoc["legalities"]) {
+      aLegalities.push(
+         {"format": k, "status": aDoc["legalities"][k]}
+      );
     }
-
-    if(aCount == 0) {
-      var aLegalities = [];
-      for(var k in aDoc["legalities"]) {
-        aLegalities.push(
-           {"format": k, "status": aDoc["legalities"][k]}
-        )
-      }
-    }
-
-    // Increment the count.
-    aCount++;
   }
 
   // Remove old values.
@@ -80,10 +68,26 @@ while(aCursor.hasNext()) {
   delete aDoc["rarity"];
   delete aDoc["artist"];
 
-  // Add the new values in.
+  // Add the new data.
   aDoc["printings"] = aPrintings;
   aDoc["legalities"] = aLegalities;
 
+  if(aDoc["name"] == "Welkin Tern"){
+    print(aPrintings)
+    print(aDoc["printings"]);
+    print(aPrintings == aDoc["printings"])
+  }
+
   // Insert the document into the collection.
-  aDb[TODB].insert(aDoc);
+  //if(aReprint) {
+  //  aDb[TODB].insert(aDoc);
+  //} else {
+    aDb[TODB].update({name: aDoc["name"]},
+      {"$set": {
+        "printings": aPrintings,
+        "legalities": aLegalities
+      }},
+      {upsert: true}
+    );
+  //}
 }
