@@ -51,7 +51,8 @@ while(aCursor.hasNext()) {
       "printing": aDoc["printings"][aCount],
       "number": aDoc["number"],
       "rarity": aDoc["rarity"],
-      "artist": aDoc["artist"]
+      "artist": aDoc["artist"],
+      "flavor": aDoc["flavor"]
   });
 
   if(aCount == 0 || aReprint) {
@@ -67,6 +68,7 @@ while(aCursor.hasNext()) {
   delete aDoc["number"];
   delete aDoc["rarity"];
   delete aDoc["artist"];
+  delete aDoc["flavor"];
 
   // Add the new data.
   aDoc["printings"] = aPrintings;
