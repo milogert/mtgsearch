@@ -11,5 +11,7 @@ HOST = "0.0.0.0"
 MONGODB_SETTINGS = {
   "DB": "mtg",
   "HOST" : "milogert.com",
-  "PORT": 27017
+  "PORT": 27017,
+  "USERNAME": "db_username",
+  "PASSWORD": "db_password"
 }
